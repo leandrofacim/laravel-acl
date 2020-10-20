@@ -1,8 +1,8 @@
 <?php
-
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Permission;
 
 class User extends Authenticatable
 {
@@ -24,8 +24,22 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function posts()
+    public function roles()
     {
-        return $this->hasMany(Post::class);
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function hasPermission(Permission $permission)
+    {
+        return $this->hasAnyRoles($permission->roles);
+    }
+
+    public function hasAnyRoles($roles)
+    {
+        if (is_array($roles) || is_object($roles)) {
+            return !! $roles->intersect($this->roles)->count();
+        }
+
+        return $this->roles->contains('name', $roles);
     }
 }

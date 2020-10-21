@@ -7,9 +7,9 @@ use App\Post;
 use Gate;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class SiteController extends Controller
 {
-    /**
+       /**
      * Create a new controller instance.
      *
      * @return void
@@ -26,9 +26,7 @@ class HomeController extends Controller
      */
     public function index(Post $post)
     {
-        $posts = $post->all();
-
-        return view('home', compact('posts'));
+        return view('portal.home.index');
     }
 
     public function update($idPost)
@@ -55,3 +53,4 @@ class HomeController extends Controller
         }
     }
 }
+

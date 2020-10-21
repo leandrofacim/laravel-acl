@@ -29,10 +29,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies($gate);
 
-        // $gate->define('update-post', function(User $user, Post $post) {
-        //     return $user->id == $post->user_id;
-        // });
-
         $permissions = Permission::with('roles')->get();
         
         foreach ($permissions as $permission) {
@@ -41,5 +37,9 @@ class AuthServiceProvider extends ServiceProvider
             });
         }
 
+        $gate->before(function(User $user, $ability) {
+            if ($user->hasAnyRoles('adm'))
+                return true;
+        });
     }
 }

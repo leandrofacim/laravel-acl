@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Portal;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Post;
 use Gate;
@@ -9,16 +10,6 @@ use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
-       /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
